@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LUMA – The Raanda We're Going to Supply Is of High Quality</title>
+    <meta name="description" content="Discover curated creative talent across The Hustlers, The Establishments, The Agencies, and The Exclusive Circles." />
+    <!-- CSS Stylesheet -->
+    <link rel="stylesheet" href="css/style.css" />
+    <!-- Fonts: Cormorant Garamond, Plus Jakarta Sans, Noto Serif Devanagari -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Noto+Serif+Devanagari:wght@600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+</head>
+<body>
+
+    <!-- Professional Talent Directory Banner -->
+    <div class="prototype-banner">
+        <span><i class="fa-solid fa-briefcase"></i> The Raanda We're Going to Supply Is of High Quality</span>
+    </div>
+
+    <!-- Navigation Bar -->
+    <header class="navbar">
+        <div class="nav-left">
+            <div class="brand-block">
+                <a href="#" class="logo">LUMA</a>
+                <div class="brand-tagline-sub">काढा तुमचा डांडा, झवा आमच्या रांडा</div>
+            </div>
+        </div>
+
+        <nav class="nav-links">
+            <a href="#" class="nav-link active" onclick="resetAllFilters(event)"><i class="fa-regular fa-compass"></i> Discover</a>
+            <a href="#categories" class="nav-link" id="navCategoriesLink"><i class="fa-solid fa-layer-group"></i> Tiers</a>
+            <a href="#how-it-works" class="nav-link" id="navHowLink"><i class="fa-solid fa-circle-question"></i> How It Works</a>
+        </nav>
+
+        <div class="nav-actions">
+            <!-- Saved Profiles Button -->
+            <button id="openSavedBtn" class="btn-icon" title="View Saved Favorites">
+                <i class="fa-regular fa-heart"></i>
+                <span class="badge" id="savedBadge">0</span>
+            </button>
+
+            <!-- My Scheduled Consultations Button -->
+            <button id="openBookingsBtn" class="btn btn-outline-plum">
+                <i class="fa-regular fa-calendar-check"></i> <span>My Randas</span>
+                <span class="badge-pill" id="bookingsCountBadge">2</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content Container: Profiles Immediately Visible -->
+    <main class="main-container">
+
+        <!-- Compact Search & Filter Control Bar -->
+        <section class="marketplace-search-section">
+            <div class="search-bar-wrap">
+                <div class="search-input-group">
+                    <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                    <input type="text" id="searchInput" placeholder="Search by name, tier, city, or specialty..." autocomplete="off" />
+                    <button id="clearSearchBtn" class="clear-search-btn" title="Clear search" style="display:none;">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+
+                <div class="filter-dropdown-group">
+                    <!-- City Dropdown -->
+                    <div class="select-wrapper">
+                        <i class="fa-solid fa-location-dot select-icon"></i>
+                        <select id="citySelect" title="Filter by City">
+                            <option value="">All Locations</option>
+                            <option value="Mumbai">Mumbai</option>
+                            <option value="Delhi">Delhi</option>
+                            <option value="Pune">Pune</option>
+                            <option value="Bengaluru">Bengaluru</option>
+                            <option value="Goa">Goa</option>
+                            <option value="Jaipur">Jaipur</option>
+                        </select>
+                    </div>
+
+                    <!-- Category / Tier Dropdown -->
+                    <div class="select-wrapper">
+                        <i class="fa-solid fa-tag select-icon"></i>
+                        <select id="tierSelect" title="Filter by Tier">
+                            <option value="">All Tiers</option>
+                            <option value="The Hustlers">1. The Hustlers</option>
+                            <option value="The Establishments">2. The Establishments</option>
+                            <option value="The Agencies">3. The Agencies</option>
+                            <option value="The Exclusive Circles">4. The Exclusive Circles</option>
+                        </select>
+                    </div>
+
+                    <!-- Sorting Dropdown -->
+                    <div class="select-wrapper">
+                        <i class="fa-solid fa-arrow-down-short-wide select-icon"></i>
+                        <select id="sortSelect" title="Sort Profiles">
+                            <option value="popular">Most In-Demand</option>
+                            <option value="price_asc">Lowest Rate First</option>
+                            <option value="price_desc">Highest Rate First</option>
+                            <option value="rating">Highest Rated</option>
+                            <option value="newest">Newest Profiles</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Filter Chips for the 4 Tiers -->
+            <div class="quick-chips-row" id="categories">
+                <span class="chips-label">Network Tiers:</span>
+                <button class="chip-btn active" data-filter="all">All Tiers</button>
+                <button class="chip-btn" data-filter="The Hustlers">1. The Hustlers</button>
+                <button class="chip-btn" data-filter="The Establishments">2. The Establishments</button>
+                <button class="chip-btn" data-filter="The Agencies">3. The Agencies</button>
+                <button class="chip-btn" data-filter="The Exclusive Circles">4. The Exclusive Circles</button>
+            </div>
+        </section>
+
+        <!-- Profiles Header Row -->
+        <section class="profiles-header-row">
+            <div class="header-titles">
+                <h1 class="welcome-heading">Discover Curated Talent</h1>
+                <span class="profile-count-badge" id="resultsCount">Showing 12 consultants</span>
+            </div>
+            <div class="active-filters-bar" id="activeFiltersSummary"></div>
+        </section>
+
+        <!-- Profile Cards Grid (4 per row on desktop, 2 on mobile) -->
+        <section class="profiles-grid-section">
+            <div class="profiles-grid" id="profilesGrid"></div>
+        </section>
+
+        <!-- How It Works Info Box -->
+        <section class="how-it-works-box" id="how-it-works">
+            <div class="how-header">
+                <h3><i class="fa-solid fa-circle-check"></i> Navigating the 4 Industry Tiers</h3>
+                <p>From rising independent creators to exclusive heritage and protocol advisory</p>
+            </div>
+            <div class="how-steps">
+                <div class="step-item">
+                    <span class="step-num">1</span>
+                    <div>
+                        <strong>The Hustlers</strong>
+                        <p>Dynamic, independent creators, rising wardrobe stylists, and agile emcees ready for grassroots productions.</p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <span class="step-num">2</span>
+                    <div>
+                        <strong>The Establishments</strong>
+                        <p>Proven studios, seasoned presenters, and established consultants with track records in mainstream media.</p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <span class="step-num">3</span>
+                    <div>
+                        <strong>The Agencies</strong>
+                        <p>Agency-backed creative directors, high-level conference moderators, and commercial campaign strategists.</p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <span class="step-num">4</span>
+                    <div>
+                        <strong>The Exclusive Circles</strong>
+                        <p>Bespoke advisors handling private collections, royal heritage archives, and high-level diplomatic protocol.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Professional Footer -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <span class="footer-logo">LUMA</span>
+                <div class="footer-tagline">काढा तुमचा डांडा, झवा आमच्या रांडा</div>
+                <p class="footer-desc">Professional creative talent agency directory organizing creators across The Hustlers, The Establishments, The Agencies, and The Exclusive Circles.</p>
+            </div>
+
+            <div class="footer-nav">
+                <h4>Network Tiers</h4>
+                <ul>
+                    <li><a href="#" onclick="filterByTierChip('The Hustlers')">The Hustlers</a></li>
+                    <li><a href="#" onclick="filterByTierChip('The Establishments')">The Establishments</a></li>
+                    <li><a href="#" onclick="filterByTierChip('The Agencies')">The Agencies</a></li>
+                    <li><a href="#" onclick="filterByTierChip('The Exclusive Circles')">The Exclusive Circles</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-disclaimer">
+                <h4>Directory Standards</h4>
+                <p>All talent representation on LUMA adheres to verified professional portfolio benchmarks across each industry tier.</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 LUMA Talent Directory. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- ==================== MODALS ==================== -->
+
+    <!-- 1. Profile Details Modal -->
+    <div class="modal-overlay" id="profileModal" style="display:none;">
+        <div class="modal-card profile-details-card">
+            <button class="modal-close" id="closeProfileModal" title="Close"><i class="fa-solid fa-xmark"></i></button>
+            <div class="profile-details-content" id="profileDetailsBody"></div>
+        </div>
+    </div>
+
+    <!-- 2. Consultation Booking Modal -->
+    <div class="modal-overlay" id="bookingModal" style="display:none;">
+        <div class="modal-card booking-card">
+            <button class="modal-close" id="closeBookingModal" title="Close"><i class="fa-solid fa-xmark"></i></button>
+            
+            <!-- Step 1: Form -->
+            <div class="booking-view-step" id="bookingFormStep">
+                <div class="modal-header">
+                    <span class="modal-tag"><i class="fa-solid fa-calendar-plus"></i> Consultation Request</span>
+                    <h2 class="modal-title">Schedule a Consultation</h2>
+                    <p class="modal-sub">Book a 1-on-1 strategy or styling session with this verified consultant.</p>
+                </div>
+
+                <div class="booking-profile-preview" id="bookingProfilePreview"></div>
+
+                <form id="bookingForm" class="booking-form">
+                    <input type="hidden" id="bookingTargetId" />
+                    
+                    <div class="form-row">
+                        <div class="form-col">
+                            <label for="bookDate"><i class="fa-regular fa-calendar"></i> Select Date</label>
+                            <input type="date" id="bookDate" required />
+                        </div>
+                        <div class="form-col">
+                            <label for="bookTime"><i class="fa-regular fa-clock"></i> Select Time Window</label>
+                            <select id="bookTime" required></select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-col">
+                            <label for="customerName"><i class="fa-regular fa-user"></i> Client / Organization Name</label>
+                            <input type="text" id="customerName" placeholder="e.g. Rahul Sharma / Apex Brands" required />
+                        </div>
+                        <div class="form-col">
+                            <label for="customerEmail"><i class="fa-regular fa-envelope"></i> Contact Email</label>
+                            <input type="email" id="customerEmail" placeholder="e.g. rahul@apex.com" required />
+                        </div>
+                    </div>
+
+                    <div class="form-col">
+                        <label for="bookNotes"><i class="fa-regular fa-message"></i> Project Brief / Consulting Goals</label>
+                        <input type="text" id="bookNotes" placeholder="e.g. Campaign wardrobe direction or keynote preparation" />
+                    </div>
+
+                    <div class="booking-disclaimer">
+                        <i class="fa-solid fa-shield-halved"></i>
+                        <span>Consultation request is saved directly in your browser. Our agency desk coordinates onboarding promptly.</span>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary-plum btn-submit-booking">
+                        <span>Confirm Consultation Request</span> <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Step 2: Confirmation -->
+            <div class="booking-view-step" id="bookingConfirmStep" style="display:none;">
+                <div class="confirm-content">
+                    <div class="confirm-icon-wrap">
+                        <i class="fa-solid fa-circle-check"></i>
+                    </div>
+                    <span class="confirm-tag">Consultation Confirmed</span>
+                    <h2 class="confirm-title">Request Successfully Scheduled!</h2>
+                    <p class="confirm-desc">Your consultation appointment has been logged into your browser session.</p>
+
+                    <div class="confirm-details-box" id="confirmDetailsBox"></div>
+
+                    <div class="confirm-actions">
+                        <button class="btn btn-outline-plum" id="viewBookingsFromConfirmBtn">
+                            <i class="fa-regular fa-calendar-check"></i> View Consultations
+                        </button>
+                        <button class="btn btn-primary-plum" id="doneConfirmBtn">
+                            Done Browsing
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. Consultations History Modal -->
+    <div class="modal-overlay" id="myBookingsModal" style="display:none;">
+        <div class="modal-card history-card">
+            <button class="modal-close" id="closeBookingsModal" title="Close"><i class="fa-solid fa-xmark"></i></button>
+            <div class="modal-header">
+                <span class="modal-tag"><i class="fa-solid fa-clock-rotate-left"></i> Scheduled Sessions</span>
+                <h2 class="modal-title">My Booked Consultations</h2>
+                <p class="modal-sub">Overview of your scheduled talent sessions stored in local browser memory.</p>
+            </div>
+
+            <div class="bookings-history-list" id="bookingsHistoryList"></div>
+        </div>
+    </div>
+
+    <!-- 4. Saved Favorites Modal -->
+    <div class="modal-overlay" id="savedModal" style="display:none;">
+        <div class="modal-card saved-card">
+            <button class="modal-close" id="closeSavedModal" title="Close"><i class="fa-solid fa-xmark"></i></button>
+            <div class="modal-header">
+                <span class="modal-tag"><i class="fa-solid fa-heart"></i> Shortlist</span>
+                <h2 class="modal-title">Saved Talent Shortlist</h2>
+                <p class="modal-sub">Bookmarked consultants for upcoming productions and events.</p>
+            </div>
+
+            <div class="saved-profiles-list" id="savedProfilesList"></div>
+        </div>
+    </div>
+
+    <!-- Toast Notification Popup -->
+    <div class="toast-popup" id="toastPopup">
+        <i class="toast-icon fa-solid fa-circle-check"></i>
+        <span class="toast-message" id="toastMessage">Success</span>
+    </div>
+
+    <!-- Pure Client-Side JavaScript -->
+    <script src="js/data.js"></script>
+    <script src="js/app.js"></script>
+    <script>
+        function filterByTierChip(tierName) {
+            const btn = Array.from(document.querySelectorAll('.chip-btn')).find(b => b.dataset.filter === tierName);
+            if (btn) btn.click();
+        }
+    </script>
+</body>
+</html>
